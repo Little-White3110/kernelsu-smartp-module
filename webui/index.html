@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KernelSU 模块</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.2/dist/mdui.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mdui@2.1.2/dist/mdui.min.js"></script>
+</head>
+<body class="mdui-appbar-with-toolbar mdui-theme-light">
+    <header class="mdui-appbar mdui-appbar-fixed">
+        <div class="mdui-toolbar mdui-color-primary">
+            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">menu</i></a>
+            <span class="mdui-toolbar-title">KernelSU 模块</span>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="#" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon material-icons">settings</i></a>
+        </div>
+    </header>
+
+    <main class="mdui-container">
+        <div class="mdui-tab mdui-tab-full-width" mdui-tab>
+            <a href="#tab1" class="mdui-tab-item mdui-ripple">使用指南</a>
+            <a href="#tab2" class="mdui-tab-item mdui-ripple">配置</a>
+            <a href="#tab3" class="mdui-tab-item mdui-ripple">历史记录</a>
+            <a href="#tab4" class="mdui-tab-item mdui-ripple">应用管理</a>
+        </div>
+
+        <div id="tab1" class="mdui-p-a-2">
+            <div class="mdui-card mdui-m-t-4">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title">使用说明</div>
+                    <div class="mdui-card-primary-subtitle">KernelSU 模块的基本使用方法</div>
+                </div>
+                <div class="mdui-card-content">
+                    <p class="mdui-text-body-1">KernelSU 是一个内核级的权限管理模块，允许您以 root 权限运行应用程序。</p>
+                    <h3 class="mdui-text-headline-6 mdui-m-t-4">功能特点</h3>
+                    <ul class="mdui-list">
+                        <li class="mdui-list-item">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">check_circle</i>
+                            <div class="mdui-list-item-content">内核级权限管理</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">check_circle</i>
+                            <div class="mdui-list-item-content">支持 Magisk 模块</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">check_circle</i>
+                            <div class="mdui-list-item-content">安全的权限控制</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">check_circle</i>
+                            <div class="mdui-list-item-content">模块化设计</div>
+                        </li>
+                    </ul>
+                    <h3 class="mdui-text-headline-6 mdui-m-t-4">使用步骤</h3>
+                    <ol class="mdui-list">
+                        <li class="mdui-list-item">
+                            <div class="mdui-list-item-content">安装 KernelSU 模块</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <div class="mdui-list-item-content">重启设备</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <div class="mdui-list-item-content">打开 KernelSU 应用</div>
+                        </li>
+                        <li class="mdui-list-item">
+                            <div class="mdui-list-item-content">授予应用 root 权限</div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2" class="mdui-p-a-2">
+            <div class="mdui-card mdui-m-t-4">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title">模块配置</div>
+                    <div class="mdui-card-primary-subtitle">自定义 KernelSU 模块设置</div>
+                </div>
+                <div class="mdui-card-content">
+                    <div class="mdui-form">
+                        <div class="mdui-checkbox">
+                            <input type="checkbox" id="checkbox1" checked>
+                            <label for="checkbox1">启用模块</label>
+                        </div>
+                        <div class="mdui-checkbox">
+                            <input type="checkbox" id="checkbox2">
+                            <label for="checkbox2">启用调试模式</label>
+                        </div>
+                        <div class="mdui-checkbox">
+                            <input type="checkbox" id="checkbox3" checked>
+                            <label for="checkbox3">自动更新模块</label>
+                        </div>
+                        
+                        <div class="mdui-divider mdui-m-y-2"></div>
+                        
+                        <div class="mdui-textfield mdui-textfield-floating-label">
+                            <label class="mdui-textfield-label">模块更新间隔</label>
+                            <input class="mdui-textfield-input" type="number" value="7" min="1" max="30">
+                            <div class="mdui-textfield-helper">天</div>
+                        </div>
+                        
+                        <div class="mdui-select mdui-m-t-2">
+                            <select class="mdui-select-input">
+                                <option value="stable">稳定版</option>
+                                <option value="beta">测试版</option>
+                                <option value="alpha">开发版</option>
+                            </select>
+                            <label class="mdui-select-label">更新渠道</label>
+                        </div>
+                        
+                        <button class="mdui-btn mdui-btn-raised mdui-color-primary mdui-m-t-4">保存配置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab3" class="mdui-p-a-2">
+            <div class="mdui-card mdui-m-t-4">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title">操作历史</div>
+                    <div class="mdui-card-primary-subtitle">模块的操作记录</div>
+                </div>
+                <div class="mdui-card-content">
+                    <div class="mdui-list">
+                        <div class="mdui-list-item mdui-ripple">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">event</i>
+                            <div class="mdui-list-item-content">
+                                <div class="mdui-list-item-title">模块安装</div>
+                                <div class="mdui-list-item-text mdui-text-color-theme-secondary">2026-04-13 10:30:45</div>
+                            </div>
+                        </div>
+                        <div class="mdui-list-item mdui-ripple">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">event</i>
+                            <div class="mdui-list-item-content">
+                                <div class="mdui-list-item-title">模块更新</div>
+                                <div class="mdui-list-item-text mdui-text-color-theme-secondary">2026-04-12 15:20:10</div>
+                            </div>
+                        </div>
+                        <div class="mdui-list-item mdui-ripple">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">event</i>
+                            <div class="mdui-list-item-content">
+                                <div class="mdui-list-item-title">权限授予</div>
+                                <div class="mdui-list-item-text mdui-text-color-theme-secondary">2026-04-12 14:15:30</div>
+                            </div>
+                        </div>
+                        <div class="mdui-list-item mdui-ripple">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">event</i>
+                            <div class="mdui-list-item-content">
+                                <div class="mdui-list-item-title">模块配置更新</div>
+                                <div class="mdui-list-item-text mdui-text-color-theme-secondary">2026-04-11 09:45:15</div>
+                            </div>
+                        </div>
+                        <div class="mdui-list-item mdui-ripple">
+                            <i class="mdui-list-item-icon mdui-icon material-icons">event</i>
+                            <div class="mdui-list-item-content">
+                                <div class="mdui-list-item-title">模块安装</div>
+                                <div class="mdui-list-item-text mdui-text-color-theme-secondary">2026-04-10 16:20:05</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab4" class="mdui-p-a-2">
+            <div class="mdui-card mdui-m-t-4">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title">应用管理</div>
+                    <div class="mdui-card-primary-subtitle">管理应用的 root 权限</div>
+                </div>
+                <div class="mdui-card-content">
+                    <!-- 搜索和过滤选项 -->
+                    <div class="mdui-row">
+                        <div class="mdui-col-md-6 mdui-col-sm-12">
+                            <div class="mdui-textfield mdui-textfield-floating-label">
+                                <i class="mdui-icon material-icons">search</i>
+                                <label class="mdui-textfield-label">搜索应用</label>
+                                <input id="app-search" class="mdui-textfield-input" type="text" placeholder="输入应用名称或包名">
+                            </div>
+                        </div>
+                        <div class="mdui-col-md-6 mdui-col-sm-12">
+                            <div class="mdui-select mdui-m-t-2">
+                                <select id="app-filter" class="mdui-select-input">
+                                    <option value="all">所有应用</option>
+                                    <option value="user">用户应用</option>
+                                    <option value="system">系统应用</option>
+                                </select>
+                                <label class="mdui-select-label">过滤应用</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 应用列表 -->
+                    <div class="mdui-divider mdui-m-y-2"></div>
+                    <div id="app-list" class="mdui-list">
+                        <!-- 应用项将通过 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

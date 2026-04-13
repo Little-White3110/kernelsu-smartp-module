@@ -1,0 +1,7 @@
+id=kernelsu-smartp-module
+name=KernelSU SmartP Module
+author=SmartP Team
+version=1.0
+versionCode=1
+description=KernelSU SmartP 模块，提供智能性能优化功能
+minKSUVersion=10600

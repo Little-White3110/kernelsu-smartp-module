@@ -1,0 +1,23 @@
+# Ignore backup files
+backup/SmartP.db*
+
+# Ignore test files
+test_backup/
+
+# Ignore zip packages
+*.zip
+
+# Ignore database files
+*.db
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore IDE files
+.idea/
+.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
