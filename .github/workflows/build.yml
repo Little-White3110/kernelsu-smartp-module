@@ -1,0 +1,50 @@
+name: Build KernelSU Module
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build module
+      run: |
+        # Create temporary build directory
+        mkdir -p build
+        
+        # Copy module files
+        cp module.prop build/
+        cp post-fs-data.sh build/
+        cp service.sh build/
+        cp uninstall.sh build/
+        cp -r backup build/
+        cp -r webroot build/
+        
+        # Set executable permissions
+        chmod +x build/post-fs-data.sh
+        chmod +x build/service.sh
+        chmod +x build/uninstall.sh
+        chmod +x build/backup/*.sh
+        
+        # Create module zip
+        cd build
+        zip -r ../kernelsu-smartp-module.zip .
+        cd ..
+        
+        # Clean up build directory
+        rm -rf build
+        
+        echo "Module built successfully!"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: kernelsu-smartp-module
+        path: kernelsu-smartp-module.zip
