@@ -24,6 +24,7 @@
             <a href="#tab2" class="mdui-tab-item mdui-ripple">配置</a>
             <a href="#tab3" class="mdui-tab-item mdui-ripple">历史记录</a>
             <a href="#tab4" class="mdui-tab-item mdui-ripple">应用管理</a>
+            <a href="#tab5" class="mdui-tab-item mdui-ripple">日志查看</a>
         </div>
 
         <div id="tab1" class="mdui-p-a-2">
@@ -196,6 +197,72 @@
                     <div class="mdui-divider mdui-m-y-2"></div>
                     <div id="app-list" class="mdui-list">
                         <!-- 应用项将通过 JavaScript 动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab5" class="mdui-p-a-2">
+            <div class="mdui-card mdui-m-t-4">
+                <div class="mdui-card-primary">
+                    <div class="mdui-card-primary-title">日志查看</div>
+                    <div class="mdui-card-primary-subtitle">查看和管理模块日志</div>
+                </div>
+                <div class="mdui-card-content">
+                    <!-- 日志控制选项 -->
+                    <div class="mdui-row">
+                        <div class="mdui-col-md-4 mdui-col-sm-12">
+                            <div class="mdui-select mdui-m-t-2">
+                                <select id="log-level" class="mdui-select-input">
+                                    <option value="all">所有级别</option>
+                                    <option value="DEBUG">DEBUG</option>
+                                    <option value="INFO">INFO</option>
+                                    <option value="WARNING">WARNING</option>
+                                    <option value="ERROR">ERROR</option>
+                                </select>
+                                <label class="mdui-select-label">日志级别</label>
+                            </div>
+                        </div>
+                        <div class="mdui-col-md-4 mdui-col-sm-12">
+                            <div class="mdui-select mdui-m-t-2">
+                                <select id="log-file" class="mdui-select-input">
+                                    <option value="current">当前日志</option>
+                                    <option value="all">所有日志</option>
+                                </select>
+                                <label class="mdui-select-label">日志文件</label>
+                            </div>
+                        </div>
+                        <div class="mdui-col-md-4 mdui-col-sm-12">
+                            <div class="mdui-textfield mdui-textfield-floating-label mdui-m-t-2">
+                                <label class="mdui-textfield-label">显示行数</label>
+                                <input id="log-lines" class="mdui-textfield-input" type="number" value="100" min="10" max="1000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 日志操作按钮 -->
+                    <div class="mdui-row mdui-m-t-4">
+                        <div class="mdui-col-md-12">
+                            <button id="refresh-log" class="mdui-btn mdui-btn-raised mdui-color-primary">
+                                <i class="mdui-icon material-icons">refresh</i> 刷新日志
+                            </button>
+                            <button id="download-log" class="mdui-btn mdui-btn-raised mdui-color-blue-grey">
+                                <i class="mdui-icon material-icons">download</i> 下载日志
+                            </button>
+                            <button id="clear-log" class="mdui-btn mdui-btn-raised mdui-color-red">
+                                <i class="mdui-icon material-icons">delete</i> 清除日志
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 日志显示区域 -->
+                    <div class="mdui-divider mdui-m-y-4"></div>
+                    <div class="mdui-card mdui-shadow-0">
+                        <div class="mdui-card-content">
+                            <pre id="log-content" class="mdui-typo mdui-text-color-text-secondary" style="max-height: 400px; overflow-y: auto; white-space: pre-wrap;">
+正在加载日志...
+                            </pre>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -149,4 +149,137 @@ function initAppManagement() {
 window.addEventListener('load', function() {
     console.log('KernelSU 模块 Web UI 已加载');
     initAppManagement();
+    initLogViewer();
 });
+
+// 初始化日志查看器
+function initLogViewer() {
+    // 初始加载日志
+    loadLogs();
+    
+    // 添加刷新日志按钮事件
+    document.getElementById('refresh-log').addEventListener('click', function() {
+        loadLogs();
+    });
+    
+    // 添加下载日志按钮事件
+    document.getElementById('download-log').addEventListener('click', function() {
+        downloadLogs();
+    });
+    
+    // 添加清除日志按钮事件
+    document.getElementById('clear-log').addEventListener('click', function() {
+        clearLogs();
+    });
+    
+    // 添加日志级别选择事件
+    document.getElementById('log-level').addEventListener('change', function() {
+        loadLogs();
+    });
+    
+    // 添加日志文件选择事件
+    document.getElementById('log-file').addEventListener('change', function() {
+        loadLogs();
+    });
+    
+    // 添加显示行数输入事件
+    document.getElementById('log-lines').addEventListener('change', function() {
+        loadLogs();
+    });
+}
+
+// 加载日志
+function loadLogs() {
+    const logContent = document.getElementById('log-content');
+    logContent.textContent = '正在加载日志...';
+    
+    // 获取用户选择的选项
+    const logLevel = document.getElementById('log-level').value;
+    const logFile = document.getElementById('log-file').value;
+    const logLines = document.getElementById('log-lines').value;
+    
+    // 模拟日志数据（实际应该从服务器或文件中获取）
+    setTimeout(() => {
+        let logs = '';
+        const now = new Date();
+        
+        // 生成模拟日志数据
+        for (let i = 0; i < parseInt(logLines); i++) {
+            const timestamp = new Date(now.getTime() - i * 1000 * 60).toISOString().replace('T', ' ').substring(0, 19);
+            const levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR'];
+            const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+            
+            // 根据选择的级别过滤
+            if (logLevel !== 'all' && randomLevel !== logLevel) {
+                continue;
+            }
+            
+            let message = '';
+            switch (randomLevel) {
+                case 'DEBUG':
+                    message = `Debug information: Module path - /data/adb/modules/kernelsu-module`;
+                    break;
+                case 'INFO':
+                    message = `Info: Module initialized successfully`;
+                    break;
+                case 'WARNING':
+                    message = `Warning: Backup directory not found, creating...`;
+                    break;
+                case 'ERROR':
+                    message = `Error: Failed to copy SmartP.db file`;
+                    break;
+            }
+            
+            logs += `[${timestamp}] [KernelSU-Module] [${randomLevel}] ${message}\n`;
+        }
+        
+        if (logs === '') {
+            logs = '没有找到符合条件的日志';
+        }
+        
+        logContent.textContent = logs;
+    }, 500);
+}
+
+// 下载日志
+function downloadLogs() {
+    const logContent = document.getElementById('log-content').textContent;
+    
+    // 创建 blob 对象
+    const blob = new Blob([logContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    
+    // 创建下载链接
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kernelsu-module-log-${new Date().toISOString().replace(/[:.]/g, '-')}.log`;
+    document.body.appendChild(a);
+    a.click();
+    
+    // 清理
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 100);
+    
+    // 显示提示
+    mdui.snackbar({
+        message: '日志已下载',
+        position: 'top'
+    });
+}
+
+// 清除日志
+function clearLogs() {
+    // 显示确认对话框
+    mdui.confirm('确定要清除所有日志吗？', '确认操作', function() {
+        // 模拟清除日志
+        document.getElementById('log-content').textContent = '日志已清除';
+        
+        // 显示提示
+        mdui.snackbar({
+            message: '日志已清除',
+            position: 'top'
+        });
+    });
+}

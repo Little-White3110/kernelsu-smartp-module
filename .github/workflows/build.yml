@@ -6,6 +6,15 @@ on:
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+    inputs:
+      build_type:
+        description: 'Build type'
+        required: true
+        default: 'release'
+        type: choice
+        options:
+        - release
+        - debug
 
 jobs:
   build:
@@ -13,6 +22,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Set build variables
+      id: build-vars
+      run: |
+        if [ "${{ github.event.inputs.build_type || 'release' }}" = "debug" ]; then
+          echo "build_type=debug" >> $GITHUB_OUTPUT
+          echo "module_name=kernelsu-smartp-module-debug" >> $GITHUB_OUTPUT
+        else
+          echo "build_type=release" >> $GITHUB_OUTPUT
+          echo "module_name=kernelsu-smartp-module" >> $GITHUB_OUTPUT
+        fi
 
     - name: Build module
       run: |
@@ -24,6 +44,7 @@ jobs:
         cp post-fs-data.sh build/
         cp service.sh build/
         cp uninstall.sh build/
+        cp log.sh build/
         cp -r backup build/
         cp -r webroot build/
         
@@ -31,11 +52,24 @@ jobs:
         chmod +x build/post-fs-data.sh
         chmod +x build/service.sh
         chmod +x build/uninstall.sh
+        chmod +x build/log.sh
         chmod +x build/backup/*.sh
+        
+        # Configure debug build
+        if [ "${{ steps.build-vars.outputs.build_type }}" = "debug" ]; then
+          # Update module.prop for debug version
+          sed -i 's/name=.*/name=KernelSU SmartP Module (Debug)/' build/module.prop
+          sed -i 's/description=.*/description=KernelSU module for modifying SmartP.db (Debug)/' build/module.prop
+          
+          # Set log level to DEBUG in config
+          sed -i 's/LOG_LEVEL=.*/LOG_LEVEL="DEBUG"/' build/backup/config.conf
+          
+          echo "Debug build configured"
+        fi
         
         # Create module zip
         cd build
-        zip -r ../kernelsu-smartp-module.zip .
+        zip -r ../${{ steps.build-vars.outputs.module_name }}.zip .
         cd ..
         
         # Clean up build directory
@@ -46,5 +80,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: kernelsu-smartp-module
-        path: kernelsu-smartp-module.zip
+        name: ${{ steps.build-vars.outputs.module_name }}
+        path: ${{ steps.build-vars.outputs.module_name }}.zip
